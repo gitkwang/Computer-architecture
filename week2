@@ -1,0 +1,54 @@
+Performance = 1/Execution time  (trade off)
+Performance는 클수록 빠르다
+
+CPU time
+- user CPU time = time running actual instruction of the program
+                = Execution time
+
+
+Clock frequency( Clock rate) = 1/ Clock cycle time  ex) 4.0GHz
+
+
+Clock period = duration of clock cycle ex) 250ps  = Clock cycle time
+- 한 사이클에 걸리는 시간
+
+CPU Clock cycle = number of cycle
+- 전체 총 
+사이클 횟수
+                = Instruction count * CPI
+
+CPU Time = CPU clock cycle * clock cycle time
+        = 총 사이클 횟수 * 사이클 당 걸리는 시간
+
+Average CPI = 각 sequence 에 대한 clock cycle > 을 전체 instruction count로 나눈다
+
+MIPS = Millions of instruciton per second
+
+MIPS = clock rate / (CPI * 10^6)
+
+A,B, which is faster? >> performance 비교 >> CPU Time 작은 쪽이 더 빠르다
+CPU Time = Instruction count * CPI * cycle time
+          = (Instruction count * CPI) / clock rate
+
+
+RISC < > CISC 비교
+
+RISC
+- MIPS, ARM, PowerPC
+Simplified and Small set
+Faster Execution
+power-efficient
+Scalability > 병렬성 같은 기능 구현 용이 (확장성)
+(-) 복잡한 작업 시 많은 명령어 필요> 프로그램 크기 증가
+
+CICS
+-x86, Intel, AMD
+Minimize the number of instructions per program
+Reduced program size
+Compatibility with older instructions ( 기존 명령와의 호환성)
+(-) Slower Execution and Higher Power Consumption
+
+
+
+
+
