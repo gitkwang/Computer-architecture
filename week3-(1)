@@ -1,0 +1,41 @@
+MIPS
+assembly
+
+add a,b,c   ( add d1, s1,s2)
+
+ex) a=b+c+d
+add a, b, d
+add a, a, d
+
+Register > temporary $t0    saved $s0
+$는 그냥 레지스터라고 표현하는 용도 ( 주소값 X 포인터랑 헷갈리지말자)
+$t0> 잠깐 값 저장용
+$s0> 중요 값 저장소
+
+Little Endian
+> LSB가 lower address
+
+BIG Endian
+> MSB가 lower address
+
+
+lw
+> lw d1, offset(base address)
+ex)
+g= h + A[8]     (g in $s1, h in $s2, base address of in $s3)
+
+lw $t0, 32($s3)
+add $s1, $s2, $t0
+
+addi
+> register에 상수값을 더할때 사용 ( immedate)
+
+$zero
+> register $zero는 무조건 0값을 가진다
+addi $zero, $zero, 7 해도 $zero는 0  = cannot be overwritten
+
+8bit to 16 bit
+> MSB( most signicant byte)를 상위 8bit로 채운다
+ex) 0000 0010> 0000 0000 / 0000 0010
+    1111 1110> 1111 1111 / 1111 0010  > msb=1 기존은 2's complement 시행
+
