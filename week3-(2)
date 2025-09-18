@@ -22,3 +22,55 @@ when A base address in $t1, h in $t2 ,
 > lw $t0, 1200($t1) = A[300]의 값을 $t0에 저장
   add $t0, $t2, $t0 = $t0 값 갱신 overwirte
   sw $t0, 1200($t1 = A[300] 에 갱신된 $t0값 저장
+
+
+#Logical Operations
+
+1. sll
+shamt 부분 5bit
+ex) 001 을 sll 1 하면 010 즉 2^n이 된다
+
+2. srl
+ex) 010을 srl 1 하면 001 즉 2^-n이 된다.
+
+3. and , andi
+4. or, ori
+5. nor
+
+
+#Conditional Operations
+
+1. beq
+ex) beq rs, rt, L1 >> if (rs==rt) then branch L1
+
+2. bne
+ex) bne rs, rt, L1 >> if (rs!=rt) then branch L1
+
+3. j
+ex) j L1 >> unconditional 무조건 L1으로 JUMP
+
+
+EX1)
+
+    bne $s3, $s4, Else   # if ($s3 != $s4) → Else로 분기
+    add $s0, $s1, $s2    # (if-branch)
+    j Exit               # if문 끝났으면 else로 빠지지 않게 Exit으로 점프
+
+Else:
+    sub $s0, $s1, $s2    # (else-branch)
+Exit:
+
+
+EX2)
+
+Loop:
+    sll  $t1, $s3, 2        # $t1 = i * 4  (int 한 칸 = 4바이트 → 바이트 오프셋)
+    addu $t1, $s6, $t1      # $t1 = base + (i*4)  → svae[i]의 주소
+    lw   $t0, 0($t1)        # $t0 = svae[i] (메모리에서 값 로드)
+    bne  $t0, $s5, Exit     # if (svae[i] != k) → Exit로 탈출
+    addi $s3, $s3, 1        # i = i + 1
+    j    Loop               # 다시 조건 검사로
+Exit:
+    # 여기로 나오면 while 종료
+
+
