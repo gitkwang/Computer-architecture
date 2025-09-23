@@ -1,0 +1,23 @@
+int leaf_example(int g, int h, int i, int j)
+{
+    int f;
+    f = (g + h) - (i + j);
+    return f;
+}
+
+
+MIPS assembly
+
+    addi $sp, $sp, -4      # allocate stack space (save $s0) 스택에 4바이트 확보
+    sw   $s0, 0($sp)       # save $s0 on stack //스택에 $s0 백업
+
+    add  $t0, $a0, $a1     # t0 = g + h
+    add  $t1, $a2, $a3     # t1 = i + j
+    sub  $s0, $t0, $t1     # f = (g+h) - (i+j)      //  기본연산 t0,t1,, saved s0에 저장
+
+    add  $v0, $s0, $zero   # move result into $v0 (return value) // move랑 동치
+                           # v0로 반환하는 이뉴는  s0는 함수가 끝날때 원래값으로 북구해야함
+
+    lw   $s0, 0($sp)       # restore $s0
+    addi $sp, $sp, 4       # deallocate stack space
+    jr   $ra               # return
