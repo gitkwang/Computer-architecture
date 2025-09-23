@@ -1,0 +1,54 @@
+# int fact(int n)  // n in $a0, return in $v0
+
+fact:
+    addi $sp, $sp, -8        # 스택에 8바이트 확보( $ra, $a0를 위한 공간)
+    sw   $ra, 4($sp)         # [sp+4] ← ra백업
+    sw   $a0, 0($sp)         # [sp+0] ← 인자 n in $a0 백업
+
+    slti $t0, $a0, 1         # save less than/// t0 = (n < 1) ? 1 : 0   // 작으면1 아니면 0
+    beq  $t0, $zero, L1      # n >= 1 이면 L1로 jump=branch
+
+    # --- base case: n < 1 ---
+    addi $v0, $zero, 1       # return 1
+    addi $sp, $sp, 8         # 스택 해제
+    jr   $ra                 # 복귀
+
+L1:
+    addi $a0, $a0, -1        # n-1 을 인자로   // n= n-1
+    jal  fact                # fact(n-1) 호출, 결과는 $v0
+
+    lw   $a0, 0($sp)         # 원래 n 복구 (곱셈 위해 필요)
+    lw   $ra, 4($sp)         # return address 복구
+    addi $sp, $sp, 8         # 스택 해제
+
+    mul  $v0, $a0, $v0       # v0 = n * fact(n-1)
+    jr   $ra                 # 복귀
+
+
+
+
+
+# int fact(int n)   // 인자 n은 $a0, 반환값은 $v0
+
+fact:
+    addi $sp, $sp, -8      
+    sw   $ra, 4($sp)         
+    sw   $a0, 0($sp)          
+
+    slti $t0, $a0, 1      
+    beq  $t0, $zero, L1   
+
+    addi $v0, $zero, 1      
+    addi $sp, $sp, 8         
+    jr   $ra                 
+
+L1:
+    addi $a0, $a0, -1      
+    jal  fact                 
+
+    lw   $a0, 0($sp)      
+    lw   $ra, 4($sp)         
+    addi $sp, $sp, 8      
+
+    mul  $v0, $a0, $v0      
+    jr   $ra              
