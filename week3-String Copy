@@ -1,0 +1,28 @@
+void strcpy (char x[], char y[]) 
+{
+    int i; 
+    i = 0; 
+    while ((x[i] = y[i]) != '\0') 
+        i++;
+}
+
+
+
+strcpy:
+    addi $sp, $sp, -4        # 1바이트 크기만큼 스택 공간 확보
+    sw   $s0, 0($sp)         # $s0 저장 (callee-saved)
+    
+    add  $s0, $zero, $zero   # i = 0
+L1:
+    lbu  $t1, 0($s0, $a1)    # y[i] 주소를 $t1에 로드
+    add  $t2, $s0, $a0       # x[i] 주소를 $t2에 로드
+    add  $t3, $s0, $a1       # y[i] 값 저장
+    sb   $t2, 0($t3)         # x[i] = y[i] (주소를 저장)
+    beq  $t3, $zero, L2      # y[i] == 0일 경우 종료
+
+    addi $s0, $s0, 1         # i = i + 1
+    j    L1                  # 다음 반복으로 점프
+L2:
+    lw   $s0, 0($sp)         # $s0 복원
+    addi $sp, $sp, 4         # 스택에서 4 바이트 복원
+    jr   $ra                 # 호출자로 복귀
