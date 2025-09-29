@@ -4,7 +4,7 @@ assembly
 add a,b,c   ( add d1, s1,s2)
 
 ex) a=b+c+d
-add a, b, d
+add a, b, c
 add a, a, d
 
 Register > temporary $t0    saved $s0
