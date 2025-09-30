@@ -1,4 +1,4 @@
-1. 분리형 계산
+1. 분리형 곱
 
 Multiplier (곱하는수)의 LSB 검사
 1이면 초기 product 0에 그대로 더한다. 이후 multiplicand를 left shift >> 왜? 그래야 계산이 계단식으로 차곡차곡 더해진다. 
@@ -13,7 +13,7 @@ Multiplier (곱하는수)의 LSB 검사
 마지막으로 64bit ALU기 때문에 최대 32bit* 32bit 계산까지 가능>> 곱하면 2*32bit 숫자가 나오기땜
 
 
-2. 결합형계산
+2. 결합형 곱
 
 초기 product를 product의 하위 4비트를 mulitplier로 채운다(곱하는수로)
 ex) 1000 * 1001 이면 초기 product = 00001001
@@ -27,3 +27,11 @@ ex) 1000 * 1001 이면 초기 product = 00001001
 ex) 1000*1001 >> 과정 8*9 구하기
 
 0000 1001> M+ 1000 1001> shift 01000100> shift 00100010>shift 00010001> M+ 10010001> shfit 01001000 = 72
+
+
+3. Long division
+
+
+상위 4비트 비교.
+1. Remain < divisior 이면 몫 0 처리 > negative니까 restore> 몫 shift left> divisior shift right
+   Remain >=divisor이면 > 몫 1 처리 >몫 shift left> divisor shift right
