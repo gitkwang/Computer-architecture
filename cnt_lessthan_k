@@ -1,0 +1,38 @@
+
+COUNT:
+    addi $sp, $sp, -12
+    sw   $s0, 0($sp)     # $s0 (i) 백업
+    sw   $s1, 4($sp)     # $s1 (cnt) 백업
+    sw   $ra, 8($sp)     # $ra 백업
+    
+    addi $s0, $zero, 0   # $s0 (i) = 0
+    addi $s1, $zero, 0   # $s1 (cnt) = 0
+
+L1:
+   
+    bge  $s0, $a1, Loop_End  # $s0 (i) >= $a1 (sizd) 이면 종료
+    
+    sll  $t0, $s0, 2         # $t0 = i * 4 (오프셋)
+    add  $t2, $a0, $t0       # $t2 = lst[i]의 주소
+    lw   $t1, 0($t2)         # $t1 = lst[i] (원소 값)
+
+    slt  $t3, $t1, $a2       # $t3 = 1 if $t1 < $a2. 아니면 $t3 = 0.
+    beq  $t3, $zero, L2
+    
+    # 카운트 증가 (조건 만족 시)
+    addi $s1, $s1, 1         # $s1 (cnt)++
+
+L2:
+    addi $s0, $s0, 1         # $s0 (i)++
+    j    L1        # 루프 시작으로 점프
+
+Loop_End:
+    # 7. 종료 및 복원
+    move $v0, $s1            # 결과 $s1 (cnt)를 $v0에 복사하여 반환
+
+    lw   $s0, 0($sp)         # $s0 복원
+    lw   $s1, 4($sp)         # $s1 복원
+    lw   $ra, 8($sp)         # $ra 복원
+    addi $sp, $sp, 12
+    
+    jr   $ra                 # 호출자에게 복귀
