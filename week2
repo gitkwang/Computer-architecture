@@ -24,7 +24,7 @@ Average CPI = 각 sequence 에 대한 clock cycle > 을 전체 instruction count
 
 MIPS = Millions of instruciton per second
 
-MIPS = clock rate / (CPI * 10^6)
+MIPS = CPI  / (clock rate * 10^6)
 
 A,B, which is faster? >> performance 비교 >> CPU Time 작은 쪽이 더 빠르다
 CPU Time = Instruction count * CPI * cycle time
