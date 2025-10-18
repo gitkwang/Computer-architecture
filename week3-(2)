@@ -2,7 +2,7 @@
 op + rs + rt  +rd + shamt + funct
 6+5+5+5+5+6 =32bit
 
-R format에서 op always 0
+R format에서 op always 000000
 
 opcode = lw, sw, addi, j 같은 것
 rs, rt > source
@@ -19,9 +19,11 @@ op+ rs+ rt+ const or address
 
 ex) A[300] =h+ A[300]
 when A base address in $t1, h in $t2 , 
-> lw $t0, 1200($t1) = A[300]의 값을 $t0에 저장
-  add $t0, $t2, $t0 = $t0 값 갱신 overwirte
-  sw $t0, 1200($t1 = A[300] 에 갱신된 $t0값 저장
+> lw $t0, 1200($t1) # A[300]의 값을 $t0에 저장 1200= 4*300 offset
+  add $t0, $t2, $t0 # $t0 값 갱신 overwirte, and h2+A[300]을 t0에 재작성
+  sw $t0, 1200    #($t1 = A[300] 에 갱신된 $t0값 store)
+
+integer는 정수는 다 32bit size
 
 
 #Logical Operations
@@ -53,7 +55,7 @@ ex) j L1 >> unconditional 무조건 L1으로 JUMP
 EX1)
 
     bne $s3, $s4, Else   # if ($s3 != $s4) → Else로 분기
-    add $s0, $s1, $s2    # (if-branch)
+    add $s0, $s1, $s2    # (if-branch) s3=s4일떄
     j Exit               # if문 끝났으면 else로 빠지지 않게 Exit으로 점프
 
 Else:
@@ -62,6 +64,9 @@ Exit:
 
 
 EX2)
+
+
+
 
 Loop:
     sll  $t1, $s3, 2        # $t1 = i * 4  (int 한 칸 = 4바이트 → 바이트 오프셋)
