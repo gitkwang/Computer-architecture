@@ -4,8 +4,8 @@ assembly
 add a,b,c   ( add d1, s1,s2)
 
 ex) a=b+c+d
-add a, b, c
-add a, a, d
+add a, b, c // a=b+c
+add a, a, d // a=a+d=a+b+c
 
 Register > temporary $t0    saved $s0
 $는 그냥 레지스터라고 표현하는 용도 ( 주소값 X 포인터랑 헷갈리지말자)
@@ -24,15 +24,15 @@ lw
 ex)
 g= h + A[8]     (g in $s1, h in $s2, base address of in $s3)
 
-lw $t0, 32($s3)
-add $s1, $s2, $t0
+lw $t0, 32($s3) #base에서 offset 32 위치의 값을 $t0에 로드 즉 $t0= A[8]
+add $s1, $s2, $t0 # g= h +A[8]
 
 addi
 > register에 상수값을 더할때 사용 ( immedate)
 
 $zero
 > register $zero는 무조건 0값을 가진다
-addi $zero, $zero, 7 해도 $zero는 0  = cannot be overwritten
+add $zero, $zero, 7 해도 $zero는 0  = cannot be overwritten
 
 8bit to 16 bit
 > MSB( most signicant byte)를 상위 8bit로 채운다
