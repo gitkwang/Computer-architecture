@@ -1,3 +1,8 @@
+# cnt = 0;
+# for(i = 0; i < size; i++)
+#   if(lst[i] < k)
+#       cnt++;
+
 
 COUNT:
     addi $sp, $sp, -12
@@ -28,11 +33,10 @@ L2:
 
 Loop_End:
     # 7. 종료 및 복원
-    move $v0, $s1            # 결과 $s1 (cnt)를 $v0에 복사하여 반환
-
+    addi $v0, $s1, $zero     # 결과 $s1 (cnt)를 $v0에 복사하여 반환
+    lw   $ra, 8($sp)         # $ra 복원
     lw   $s0, 0($sp)         # $s0 복원
     lw   $s1, 4($sp)         # $s1 복원
-    lw   $ra, 8($sp)         # $ra 복원
     addi $sp, $sp, 12
     
     jr   $ra                 # 호출자에게 복귀
